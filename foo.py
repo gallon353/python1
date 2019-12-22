@@ -1,13 +1,16 @@
 
-
-
-import unittest
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from time import sleep
 
 
 if __name__ == '__main__':
-    suite = unittest.defaultTestLoader.discover('.', 'bar.py')
+    driver = webdriver.Chrome()
+    driver.implicitly_wait(10)
+    driver.maximize_window()
 
-    # verbosity 参数的值0 1(默认值) 2   数字越大报告格式越详细
-    # failfast   True: 当有用例fail时终止测试 False
-    unittest.TextTestRunner(verbosity=100, failfast=True).run(suite)
+    el = driver.find_element_by_class_name('xxx')
+    ActionChains(driver).click_and_hold(el).pause(3).release().perform()
 
+    sleep(2)
+    driver.quit()
